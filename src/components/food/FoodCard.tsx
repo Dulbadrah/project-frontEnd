@@ -18,7 +18,6 @@ type FoodCardProps = {
 
 export const FoodCard = ({
   foodName,
-
   ingredients,
   image,
 }: FoodCardProps) => {
