@@ -12,10 +12,10 @@ import {
   DialogTitle,
 } from "../ui/dialog";
 import { useState } from "react";
-import { food } from "@/type/type";
+import { Food } from "@/type/type";
 
 type FoodDetailModalProps = {
-  food: food;
+  food: Food;
   isModalOpen: boolean;
   onToggleModal: () => void;
 };
@@ -26,7 +26,7 @@ export const FoodDetailModal = ({
   onToggleModal,
 }: FoodDetailModalProps) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const { foodName, image, ingredients, price } = food;
+  const { foodName, image, ingredients, price, _id } = food;
 
   const addQuantity = () => {
     setQuantity((prev) => prev + 1);
@@ -37,6 +37,16 @@ export const FoodDetailModal = ({
   };
 
   const handleAddToCart = () => {
+    const item = {
+      _id,
+      foodName,
+      image,
+      ingredients,
+      price,
+      quantity,
+      totalPrice: Number(price) * quantity,
+    };
+
     setQuantity(1);
     onToggleModal();
   };
@@ -59,7 +69,7 @@ export const FoodDetailModal = ({
           <div className="flex flex-col w-1/2 ">
             <div className="flex justify-end">
               <Button
-                className="bg-white h-9 w-9  hover:bg-secondary !rounded-full"
+                className="bg-white h-9 w-9 hover:bg-secondary !rounded-full"
                 onClick={onToggleModal}
               >
                 <X className="text-black" />
@@ -77,11 +87,11 @@ export const FoodDetailModal = ({
               </DialogHeader>
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <p className="flex flex-col text-base font-normal text-[#09090B]">
+                  <p className="text-base font-normal text-[#09090B]">
                     Total price:
                   </p>
                   <div className="text-lg font-semibold text-[#09090B]">
-                    <p>${price}</p>
+                    <p>{Number(price) * quantity} ₮</p>
                   </div>
                 </div>
                 <div className="flex w-[121px] justify-around">

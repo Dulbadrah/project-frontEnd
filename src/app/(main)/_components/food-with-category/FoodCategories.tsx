@@ -2,24 +2,22 @@
 
 import { useEffect, useState } from "react";
 import { FoodsWithCategories } from "./FoodsWithCategories";
-import { Category } from "@/type/type";
+import { Food, FoodCategory } from "@/type/type";
 
 export const FoodCategories = () => {
-  const [categories, setCategories] = useState<Category[]>([])
-  console.log(categories)
+  const [categories, setCategories] = useState<Food[]>([]);
+
   useEffect(() => {
-
     const getCategories = async () => {
-      const response = await fetch("http://localhost:4100/category")
-      const data = await response.json()
-      setCategories(data.categories)
+      const response = await fetch("http://localhost:4100/category");
+      const data = await response.json();
+      setCategories(data.categories);
     };
-    getCategories()
-  })
+    getCategories();
+  });
 
-
-  // if (!categories.length)
-  //   return <p className="text-white">No categories found</p>;
+  if (!categories.length)
+    return <p className="text-white">No categories found</p>;
 
   return (
     <div>

@@ -1,24 +1,20 @@
-export type Category = {
-    categoryName: string,
-    createdAt: string
-    updatedAt: string
-    __v: number
-    _id: string
-}
+// types.ts
 
-export type food = {
-    _id: string,
-    foodName: string,
-    price: number,
-    image: string,
-    ingredients: string,
-}
+export type Food = {
+  _id: string;
+  foodName: string;
+  price: String;
+  image: string;
+  ingredients: string;
+  categoryName?: string;
+};
 
+export type FoodCategory = {
+  _id: string;
+  categoryName: string;
+  foods: Food[];
+};
 
-export type data = {
-    foodName: String
-    price: String
-    image: String
-    ingredients: String
-    _id: String
-}
+export type FoodsWithCategoriesResponse = {
+  FoodsWithCategories: FoodCategory[];
+};

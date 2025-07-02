@@ -10,7 +10,7 @@ import { FoodDetailModal } from "./FoodDetailModal";
 
 type FoodCardProps = {
   foodName: string;
-  price: number;
+  price: String;
   ingredients: string;
   image: string;
   _id: string;
@@ -18,17 +18,11 @@ type FoodCardProps = {
 
 export const FoodCard = ({
   foodName,
+  price,
   ingredients,
   image,
+  _id,
 }: FoodCardProps) => {
-  const food = {
-    _id: "1",
-    foodName: "foodName",
-    price: 1200,
-    image: "",
-    ingredients: "ingredients ingredients",
-  };
-
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
@@ -37,13 +31,15 @@ export const FoodCard = ({
   };
 
   const handleAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
-    console.log(event);
+    event.stopPropagation();
     setShowAlert(true);
   };
 
   const handleAlertRemove = () => {
     setShowAlert(false);
   };
+
+  const food = { _id, foodName, price, image, ingredients };
 
   return (
     <div className="w-full">
@@ -62,7 +58,7 @@ export const FoodCard = ({
           <div className="w-full">
             <div className="flex justify-between">
               <p className="text-2xl font-semibold text-red-500">{foodName}</p>
-              <p className="text-lg font-semibold text-[#09090B]">12 ₮</p>
+              <p className="text-lg font-semibold text-[#09090B]">{price} ₮</p>
             </div>
 
             <div className="mt-2 text-sm text-[#09090B] font-normal">
