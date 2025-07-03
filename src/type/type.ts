@@ -1,5 +1,8 @@
 // types.ts
 
+import { strict } from "assert";
+import exp from "constants";
+
 export type Food = {
   _id: string;
   foodName: string;
@@ -17,4 +20,9 @@ export type FoodCategory = {
 
 export type FoodsWithCategoriesResponse = {
   FoodsWithCategories: FoodCategory[];
+};
+export type addCategoryResponse = {
+  categoryNAme: string;
+  setCategoryName: string;
+  category: string;
 };
