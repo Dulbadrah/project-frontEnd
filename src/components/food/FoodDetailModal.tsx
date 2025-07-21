@@ -11,8 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "../ui/dialog";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Food } from "@/type/type";
+import { FoodCartContext } from "@/providers/FoodCart";
 
 type FoodDetailModalProps = {
   food: Food;
@@ -25,32 +26,33 @@ export const FoodDetailModal = ({
   isModalOpen,
   onToggleModal,
 }: FoodDetailModalProps) => {
-  const [quantity, setQuantity] = useState<number>(1);
-  const { foodName, image, ingredients, price, _id } = food;
-  console.log(food);
-  const addQuantity = () => {
-    setQuantity((prev) => prev + 1);
-  };
+  const { addToCart, addQuantity, quantity, subtractQuantity } =
+    useContext(FoodCartContext);
 
-  const subtractQuantity = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : prev));
-  };
+  const { foodName, image, ingredients, price } = food;
 
   const handleAddToCart = () => {
-    const item = {
-      _id,
-      foodName,
-      image,
-      ingredients,
-      price,
-      quantity,
-      totalPrice: Number(price) * quantity,
-    };
+    addToCart({
+      food: {
+        foodName: foodName,
+        price: Number(price),
+        image: image,
+        ingredients: ingredients,
+        _id: "",
+        category: {
+          _id: "",
+          categoryName: "",
+          createdAt: "",
+          updatedAt: "",
+        },
+        createdAt: "",
+        updatedAt: "",
+      },
+      quantity: quantity,
+    });
 
-    setQuantity(1);
     onToggleModal();
   };
-
   return (
     <Dialog open={isModalOpen} onOpenChange={onToggleModal}>
       <DialogContent className="bg-white flex flex-col max-w-[826px] max-h-[412px] sm:rounded-3xl">

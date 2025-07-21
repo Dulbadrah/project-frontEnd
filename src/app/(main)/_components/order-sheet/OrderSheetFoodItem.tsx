@@ -4,7 +4,19 @@ import { Button } from "@/components/ui/button";
 import { CircleX, Minus, Plus } from "lucide-react";
 import Image from "next/image";
 
-export const OrderSheetFoodItem = ({ food, quantity }) => {
+type Food = {
+  food: Food;
+};
+export const OrderSheetFoodItem = ({ food, quantity, setFoodCart }) => {
+  const addQuantity = () => {
+    setFoodCart((prevCart) =>
+      prevCart.map((item) =>
+        item.food._id === food._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      )
+    );
+  };
   return (
     <>
       <div className="flex gap-3">
@@ -36,13 +48,13 @@ export const OrderSheetFoodItem = ({ food, quantity }) => {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <Button variant="ghost">
+              {/* <Button variant="ghost" onClick={subtractQuantity}>
                 <Minus />
-              </Button>
+              </Button> */}
 
               <div className="text-lg font-semibold">{quantity}</div>
 
-              <Button variant="ghost">
+              <Button variant="ghost" onClick={addQuantity}>
                 <Plus />
               </Button>
             </div>
