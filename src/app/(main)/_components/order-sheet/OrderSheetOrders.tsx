@@ -1,7 +1,11 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OrderSheetOrderItem } from ".";
+import { FoodCard } from "@/components/food";
+import { useFoodCart } from "@/providers/FoodCart";
 
 export const OrderSheetOrders = () => {
+  const { orderFoodGet } = useFoodCart();
+
   return (
     <Card className="h-[87%]">
       <CardHeader className="p-4 ">

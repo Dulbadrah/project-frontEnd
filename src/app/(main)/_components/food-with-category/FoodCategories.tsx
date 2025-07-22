@@ -14,7 +14,7 @@ export const FoodCategories = () => {
       setCategories(data.categories);
     };
     getCategories();
-  });
+  }, []);
 
   if (!categories.length)
     return <p className="text-white">No categories found</p>;

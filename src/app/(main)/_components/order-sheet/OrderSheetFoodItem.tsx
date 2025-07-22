@@ -1,22 +1,19 @@
 import { SidebarDashLine } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { FoodWithQuantity, useFoodCart } from "@/providers/FoodCart";
 
 import { CircleX, Minus, Plus } from "lucide-react";
 import Image from "next/image";
+import { FC } from "react";
 
-type Food = {
-  food: Food;
-};
-export const OrderSheetFoodItem = ({ food, quantity, setFoodCart }) => {
-  const addQuantity = () => {
-    setFoodCart((prevCart) =>
-      prevCart.map((item) =>
-        item.food._id === food._id
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      )
-    );
-  };
+export const OrderSheetFoodItem: FC<FoodWithQuantity> = ({
+  food,
+  quantity,
+  totalPrice,
+}) => {
+  const { incrementFoodQuantity, decrimentFoodQuantity, removeFromCart } =
+    useFoodCart();
+
   return (
     <>
       <div className="flex gap-3">
@@ -38,28 +35,40 @@ export const OrderSheetFoodItem = ({ food, quantity, setFoodCart }) => {
                 <p className="text-xs font-light">{food.ingredients}</p>
               </div>
             </div>
-            <CircleX
-              strokeWidth={0.5}
-              size={50}
-              color="red"
-              className="cursor-pointer"
-            />
+            <Button
+              onClick={removeFromCart.bind(null, food._id)}
+              className="ml-auto"
+              variant="ghost"
+            >
+              <CircleX
+                strokeWidth={2}
+                size={50}
+                color="red"
+                className="cursor-pointer"
+              />
+            </Button>
           </div>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              {/* <Button variant="ghost" onClick={subtractQuantity}>
+              <Button
+                variant="ghost"
+                onClick={() => decrimentFoodQuantity(food._id)}
+              >
                 <Minus />
-              </Button> */}
+              </Button>
 
               <div className="text-lg font-semibold">{quantity}</div>
 
-              <Button variant="ghost" onClick={addQuantity}>
+              <Button
+                variant="ghost"
+                onClick={() => incrementFoodQuantity(food._id)}
+              >
                 <Plus />
               </Button>
             </div>
 
-            <h4 className="font-bold">12₮</h4>
+            <h4 className="font-bold">{totalPrice}₮</h4>
           </div>
         </div>
       </div>

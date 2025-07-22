@@ -28,6 +28,7 @@ export type addCategoryResponse = {
 };
 
 export type FoodType = {
+  food: Food;
   _id: string;
   foodName: string;
   price: number;
@@ -42,4 +43,10 @@ export type CategoryType = {
   categoryName: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type FoodsWithCategory = {
+  _id: string;
+  categoryName: string;
+  foods: FoodType[];
 };

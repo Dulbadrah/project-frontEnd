@@ -1,46 +1,19 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { OrderSheetEmptyCard } from "./OrderSheetEmptyCard";
 import { OrderSheetFoodItem } from "./OrderSheetFoodItem";
-import { useCallback, useContext } from "react";
-import { FoodCartContext } from "@/providers/FoodCart";
+import { useFoodCart } from "@/providers/FoodCart";
 
-// export const cartData = [
-//   {
-//     food: {
-//       _id: "1",
-//       foodName: "foodName",
-//       price: 1200,
-//       image: "",
-//       ingredients: "ingredients ingredients",
-//       categoryId: {
-//         _id: "1",
-//         categoryName: "categoryName",
-//         createdAt: "2025-06-27T17:00:00+08:00",
-//         updatedAt: "2025-06-22T17:00:00+08:00",
-//       },
-//     },
-//     quantity: 1,
-//   },
-// ];
 export const OrderSheetCart = () => {
-  const { foodCart, addQuantity, subtractQuantity, quantity, setFoodCart } =
-    useContext(FoodCartContext);
-  console.log(foodCart);
+  const { foodCart } = useFoodCart();
 
   const renderFoodCard = () => {
-    if (foodCart?.length) {
-      return foodCart?.map((item) => {
-        return (
-          <OrderSheetFoodItem
-            key={item.food._id}
-            food={item.food}
-            quantity={item.quantity}
-            setFoodCart={setFoodCart}
-          />
-        );
-      });
+    if (!foodCart?.length) {
+      return <OrderSheetEmptyCard />;
     }
-    return <OrderSheetEmptyCard />;
+
+    return foodCart?.map((item) => {
+      return <OrderSheetFoodItem key={item.food._id} {...item} />;
+    });
   };
 
   return (
