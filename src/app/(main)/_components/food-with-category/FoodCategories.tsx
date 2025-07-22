@@ -2,16 +2,21 @@
 
 import { useEffect, useState } from "react";
 import { FoodsWithCategories } from "./FoodsWithCategories";
-import { Food, FoodCategory } from "@/type/type";
+import { Food } from "@/type/type";
 
 export const FoodCategories = () => {
   const [categories, setCategories] = useState<Food[]>([]);
 
   useEffect(() => {
+
     const getCategories = async () => {
-      const response = await fetch("http://localhost:4100/category");
+      try{
+      const response = await fetch("http://localhost:4100/Category");
       const data = await response.json();
       setCategories(data.categories);
+      } catch (error){
+        console.error("frtch error",error);
+      }
     };
     getCategories();
   });
