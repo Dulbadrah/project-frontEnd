@@ -19,7 +19,7 @@ export const FoodCategories = () => {
       }
     };
     getCategories();
-  });
+  }, []);
 
   if (!categories.length)
     return <p className="text-white">No categories found</p>;

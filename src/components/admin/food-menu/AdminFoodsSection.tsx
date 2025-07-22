@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  FoodsWithCategories,
-  foodWithCategories,
-} from "@/app/(main)/_components/food-with-category/FoodsWithCategories";
+import { foodWithCategories } from "@/app/(main)/_components/food-with-category/FoodsWithCategories";
 import { AddFoodModal } from "./AddFoodModal";
 import { AdminFoodCard } from "./AdminFoodCard";
 import { AdminFoodSkeleton } from "./AdminFoodSkeleton";
@@ -24,9 +21,9 @@ export type FoodCategory = {
 };
 
 export const AdminFoodsSection = () => {
-  if (!FoodsWithCategories) return null;
+  if (!FoodWithCategories) return null;
 
-  if (!FoodsWithCategories.length) return <AdminFoodSkeleton />;
+  if (!FoodWithCategories.length) return <AdminFoodSkeleton />;
 
   return (
     <div className="flex flex-col gap-6">

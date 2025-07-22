@@ -72,7 +72,7 @@ export const FoodCard = ({
         isModalOpen={isModalOpen}
         onToggleModal={onToggleModal}
       />
-      <AddToCartAlert isVisible={showAlert} onHide={handleAlertRemove} />
+      <AddToCartAlert food={food} isVisible={showAlert} onHide={handleAlertRemove} />
     </div>
   );
 };
