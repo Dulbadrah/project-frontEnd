@@ -19,7 +19,7 @@ type FoodCartContextType = {
   removeFromCart: (_foodId: string) => void;
   incrementFoodQuantity: (_foodId: string) => void;
   decrimentFoodQuantity: (_foodId: string) => void;
-  orderedFood: [];
+
 };
 
 export const FoodCartContext = createContext<FoodCartContextType>(
@@ -109,32 +109,31 @@ export default function FoodCartContextProvider({
     return respose;
   };
 
-  const price = foodCart.map((food) => {
-    return {
-      price: food.food.price,
-    };
-  });
+  // const price = foodCart.map((food) => {
+  //   return {
+  //     price: food.food.price,
+  //   };
+  // });
 
-  const orderFoodGet = async () => {
-    const response = await axios.get(
-      "http://localhost:4100/orderFood/68804657b323d966d0ee030b"
-    );
-    console.log(response.data);
-    setOrderedFood(response);
-  };
+  // const orderFoodGet = async () => {
+  //   const response = await axios.get(
+  //     "http://localhost:4100/orderFood/68804657b323d966d0ee030b"
+  //   );
+  //   console.log(response.data);
+  //   setOrderedFood(response);
+  // };
 
-  useEffect(() => {
-    const getOrderFood = async () => {
-      await orderFoodGet();
-    };
-    getOrderFood();
-  }, []);
+  // useEffect(() => {
+  //   const getOrderFood = async () => {
+  //     await orderFoodGet();
+  //   };
+  //   getOrderFood();
+  // }, []);
   return (
     <FoodCartContext.Provider
       value={{
         foodCart,
         totalPrices,
-        orderedFood,
         orderFood,
         addToCart,
         removeFromCart,
