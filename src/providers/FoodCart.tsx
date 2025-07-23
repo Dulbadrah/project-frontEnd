@@ -1,8 +1,8 @@
 "use client";
 
 import { FoodType } from "@/type/type";
-import { createContext, useContext, useState } from "react";
-import axios from "axios";
+import { createContext, useContext, useEffect, useState } from "react";
+import axios, { AxiosResponse } from "axios";
 
 export type FoodWithQuantity = {
   food: FoodType;
@@ -14,11 +14,12 @@ type FoodCartContextType = {
   foodCart: FoodWithQuantity[];
   totalPrices: number;
   addToCart: (_food: FoodWithQuantity) => void;
-  orderFood: (_food: FoodWithQuantity) => void;
+  orderFood: () => Promise<AxiosResponse<any, any>>;
   orderFoodGet: (_food: FoodWithQuantity) => void;
   removeFromCart: (_foodId: string) => void;
   incrementFoodQuantity: (_foodId: string) => void;
   decrimentFoodQuantity: (_foodId: string) => void;
+  orderedFood: [];
 };
 
 export const FoodCartContext = createContext<FoodCartContextType>(
@@ -31,7 +32,7 @@ export default function FoodCartContextProvider({
   children: React.ReactNode;
 }) {
   const [foodCart, setFoodCart] = useState<FoodWithQuantity[]>([]);
-
+  const [orderedFood, setOrderedFood] = useState([]);
   const addToCart = (newFood: FoodWithQuantity) => {
     const existingFood = foodCart.find(
       ({ food }) => food._id === newFood.food._id
@@ -100,23 +101,40 @@ export default function FoodCartContextProvider({
   });
 
   const orderFood = async () => {
-    await axios.post("http://localhost:4100/orderFood", {
+    const respose = await axios.post("http://localhost:4100/orderFood", {
       totalPrice: totalPrices,
       foodOrderItems: payload,
     });
+
+    return respose;
   };
+
+  const price = foodCart.map((food) => {
+    return {
+      price: food.food.price,
+    };
+  });
 
   const orderFoodGet = async () => {
-    await axios.get("http://localhost:4100/orderFood/6863508c343186b2d4313f8f"),
-      {};
+    const response = await axios.get(
+      "http://localhost:4100/orderFood/68804657b323d966d0ee030b"
+    );
+    console.log(response.data);
+    setOrderedFood(response);
   };
 
+  useEffect(() => {
+    const getOrderFood = async () => {
+      await orderFoodGet();
+    };
+    getOrderFood();
+  }, []);
   return (
     <FoodCartContext.Provider
       value={{
         foodCart,
         totalPrices,
-        orderFoodGet,
+        orderedFood,
         orderFood,
         addToCart,
         removeFromCart,

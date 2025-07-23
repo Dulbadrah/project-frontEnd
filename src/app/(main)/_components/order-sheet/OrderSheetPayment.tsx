@@ -15,10 +15,14 @@ export const OrderSheetPayment = ({ openModal }: { openModal: () => void }) => {
 
   const shippingCost = 5000;
 
-  const handleFoodOrder = () => {
-    setTimeout(() => {
+  const handleFoodOrder = async () => {
+    try {
+      await orderFood();
       openModal();
-    }, 3000);
+    } catch (error) {
+      console.log(error);
+      alert("Zahialga hihied aldaa garlaa");
+    }
   };
 
   return (

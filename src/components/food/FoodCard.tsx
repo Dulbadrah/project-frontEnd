@@ -33,6 +33,7 @@ export const FoodCard = ({
   const handleAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
     setShowAlert(true);
+    setIsModalOpen(!isModalOpen);
   };
 
   const handleAlertRemove = () => {
@@ -72,7 +73,11 @@ export const FoodCard = ({
         isModalOpen={isModalOpen}
         onToggleModal={onToggleModal}
       />
-      <AddToCartAlert food={food} isVisible={showAlert} onHide={handleAlertRemove} />
+      <AddToCartAlert
+        food={food}
+        isVisible={showAlert}
+        onHide={handleAlertRemove}
+      />
     </div>
   );
 };
