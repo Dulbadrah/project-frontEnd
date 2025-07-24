@@ -15,7 +15,6 @@ type FoodCartContextType = {
   totalPrices: number;
   addToCart: (_food: FoodWithQuantity) => void;
   orderFood: () => Promise<AxiosResponse<any, any>>;
-  orderFoodGet: (_food: FoodWithQuantity) => void;
   removeFromCart: (_foodId: string) => void;
   incrementFoodQuantity: (_foodId: string) => void;
   decrimentFoodQuantity: (_foodId: string) => void;
