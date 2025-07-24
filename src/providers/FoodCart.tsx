@@ -31,7 +31,7 @@ export default function FoodCartContextProvider({
   children: React.ReactNode;
 }) {
   const [foodCart, setFoodCart] = useState<FoodWithQuantity[]>([]);
-  const [orderedFood, setOrderedFood] = useState([]);
+  
   const addToCart = (newFood: FoodWithQuantity) => {
     const existingFood = foodCart.find(
       ({ food }) => food._id === newFood.food._id
